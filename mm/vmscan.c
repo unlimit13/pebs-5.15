@@ -26,6 +26,7 @@
 #include <linux/file.h>
 #include <linux/writeback.h>
 #include <linux/blkdev.h>
+#include <linux/mempolicy.h>
 #include <linux/buffer_head.h>	/* for try_to_release_page(),
 					buffer_heads_over_limit */
 #include <linux/mm_inline.h>
@@ -190,6 +191,7 @@ static void set_task_reclaim_state(struct task_struct *task,
 
 static LIST_HEAD(shrinker_list);
 static DECLARE_RWSEM(shrinker_rwsem);
+int demote_scale_factor = 200;
 
 #ifdef CONFIG_MEMCG
 static int shrinker_nr_max;
@@ -1338,12 +1340,15 @@ static unsigned int demote_page_list(struct list_head *demote_pages,
 	int target_nid = next_demotion_node(pgdat->node_id);
 	unsigned int nr_succeeded;
 	int err;
+	bool file_lru;
 
 	if (list_empty(demote_pages))
 		return 0;
 
 	if (target_nid == NUMA_NO_NODE)
 		return 0;
+
+	file_lru = page_is_file_lru(lru_to_page(demote_pages));
 
 	/* Demotion ignores all cpuset and mempolicy settings */
 	err = migrate_pages(demote_pages, alloc_demote_page, NULL,
@@ -1354,6 +1359,11 @@ static unsigned int demote_page_list(struct list_head *demote_pages,
 		__count_vm_events(PGDEMOTE_KSWAPD, nr_succeeded);
 	else
 		__count_vm_events(PGDEMOTE_DIRECT, nr_succeeded);
+
+	if (file_lru)
+		__count_vm_events(PGDEMOTE_FILE, nr_succeeded);
+	else
+		__count_vm_events(PGDEMOTE_ANON, nr_succeeded);
 
 	return nr_succeeded;
 }
@@ -2585,10 +2595,10 @@ static void get_scan_count(struct lruvec *lruvec, struct scan_control *sc,
 	enum lru_list lru;
 
 	/* If we have no swap space, do not bother scanning anon pages. */
-	if (!sc->may_swap || !can_reclaim_anon_pages(memcg, pgdat->node_id, sc)) {
+	/*if (!sc->may_swap || !can_reclaim_anon_pages(memcg, pgdat->node_id, sc)) {
 		scan_balance = SCAN_FILE;
 		goto out;
-	}
+	}*/
 
 	/*
 	 * Global reclaim will swap to prevent OOM even with no
@@ -3120,7 +3130,10 @@ again:
 			if (!managed_zone(zone))
 				continue;
 
-			total_high_wmark += high_wmark_pages(zone);
+			if (node_is_toptier(pgdat->node_id))
+				total_high_wmark += demote_wmark_pages(zone);
+			else
+				total_high_wmark += high_wmark_pages(zone);
 		}
 
 		/*
@@ -3774,6 +3787,9 @@ static bool pgdat_balanced(pg_data_t *pgdat, int order, int highest_zoneidx)
 	unsigned long mark = -1;
 	struct zone *zone;
 
+	if (node_is_toptier(pgdat->node_id) &&
+			highest_zoneidx >= ZONE_NORMAL)
+		return pgdat_toptier_balanced(pgdat, 0, highest_zoneidx);
 	/*
 	 * Check watermarks bottom-up as lower zones are more likely to
 	 * meet watermarks.
@@ -3798,6 +3814,28 @@ static bool pgdat_balanced(pg_data_t *pgdat, int order, int highest_zoneidx)
 		return true;
 
 	return false;
+}
+bool pgdat_toptier_balanced(pg_data_t *pgdat, int order, int zone_idx)
+{
+	unsigned long mark;
+	struct zone *zone;
+
+	if (!node_is_toptier(pgdat->node_id) ||
+		order > 0 || zone_idx < ZONE_NORMAL) {
+		return true;
+	}
+
+	zone = pgdat->node_zones + ZONE_NORMAL;
+
+	if (!managed_zone(zone))
+		return true;
+
+	mark = min(demote_wmark_pages(zone), zone_managed_pages(zone));
+
+	if (zone_page_state(zone, NR_FREE_PAGES) < mark)
+		return false;
+
+	return true;
 }
 
 /* Clear pgdat state for congested, dirty or under writeback. */
@@ -3868,7 +3906,10 @@ static bool kswapd_shrink_node(pg_data_t *pgdat,
 		if (!managed_zone(zone))
 			continue;
 
-		sc->nr_to_reclaim += max(high_wmark_pages(zone), SWAP_CLUSTER_MAX);
+		if (node_is_toptier(pgdat->node_id))
+			sc->nr_to_reclaim += max(demote_wmark_pages(zone), SWAP_CLUSTER_MAX);
+		else
+			sc->nr_to_reclaim += max(high_wmark_pages(zone), SWAP_CLUSTER_MAX);
 	}
 
 	/*
@@ -4232,8 +4273,22 @@ static void kswapd_try_to_sleep(pg_data_t *pgdat, int alloc_order, int reclaim_o
 		 */
 		set_pgdat_percpu_threshold(pgdat, calculate_normal_threshold);
 
-		if (!kthread_should_stop())
-			schedule();
+		if (!kthread_should_stop()) {
+			/*
+			 * In numa promotion modes, try harder to recover from
+			 * kswapd failures, because direct reclaiming may be
+			 * not triggered.
+			 */
+			if (node_is_toptier(pgdat->node_id) &&
+					pgdat->kswapd_failures >= MAX_RECLAIM_RETRIES) {
+				remaining = schedule_timeout(10 * HZ);
+				if (!remaining) {
+					pgdat->kswapd_highest_zoneidx = ZONE_MOVABLE;
+					pgdat->kswapd_order = 0;
+				}
+			} else
+				schedule();
+		}
 
 		set_pgdat_percpu_threshold(pgdat, calculate_pressure_threshold);
 	} else {

@@ -1,0 +1,45 @@
+--- kernel/sched/fair.c
++++ kernel/sched/fair.c
+@@ -1424,7 +1424,7 @@ bool should_numa_migrate_memory(struct task_struct *p, struct page * page,
+ 
+ 	count_vm_numa_event(PGPROMOTE_CANDIDATE);
+ 
+-	if (flags & TNF_DEMOTED)
++	if (numa_demotion_enabled && (flags & TNF_DEMOTED))
+ 		count_vm_numa_event(PGPROMOTE_CANDIDATE_DEMOTED);
+ 
+ 	if (page_is_file_lru(page))
+@@ -1435,6 +1435,14 @@ bool should_numa_migrate_memory(struct task_struct *p, struct page * page,
+ 	this_cpupid = cpu_pid_to_cpupid(dst_cpu, current->pid);
+ 	last_cpupid = page_cpupid_xchg_last(page, this_cpupid);
+ 
++	/*
++	 * The pages in non-toptier memory node should be migrated
++	 * according to hot/cold instead of accessing CPU node.
++	 */
++	if (!node_is_toptier(src_nid))
++		return true;
++
++
+ 	/*
+ 	 * Allow first faults or private faults to migrate immediately early in
+ 	 * the lifetime of a task. The magic number 4 is based on waiting for
+--- kernel/sched/fair.c
++++ kernel/sched/fair.c
+@@ -21,6 +21,8 @@
+  *  Copyright (C) 2007 Red Hat, Inc., Peter Zijlstra
+  */
+ #include "sched.h"
++#include <trace/events/sched.h>
++#include <linux/mempolicy.h>
+ 
+ /*
+  * Targeted preemption latency for CPU-bound tasks:
+@@ -10802,6 +10804,7 @@ void trigger_load_balance(struct rq *rq)
+ 		raise_softirq(SCHED_SOFTIRQ);
+ 
+ 	nohz_balancer_kick(rq);
++	check_toptier_balanced();
+ }
+ 
+ static void rq_online_fair(struct rq *rq)
