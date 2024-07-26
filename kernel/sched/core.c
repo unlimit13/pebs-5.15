@@ -2104,8 +2104,8 @@ void check_preempt_curr(struct rq *rq, struct task_struct *p, int flags)
 
 #ifdef CONFIG_SMP
 
-static void
-__do_set_cpus_allowed(struct task_struct *p, const struct cpumask *new_mask, u32 flags);
+/*void
+__do_set_cpus_allowed(struct task_struct *p, const struct cpumask *new_mask, u32 flags);*/
 
 static int __set_cpus_allowed_ptr(struct task_struct *p,
 				  const struct cpumask *new_mask,
@@ -2447,7 +2447,7 @@ void set_cpus_allowed_common(struct task_struct *p, const struct cpumask *new_ma
 	p->nr_cpus_allowed = cpumask_weight(new_mask);
 }
 
-static void
+void
 __do_set_cpus_allowed(struct task_struct *p, const struct cpumask *new_mask, u32 flags)
 {
 	struct rq *rq = task_rq(p);
@@ -2491,12 +2491,12 @@ __do_set_cpus_allowed(struct task_struct *p, const struct cpumask *new_mask, u32
 	if (running)
 		set_next_task(rq, p);
 }
-
+EXPORT_SYMBOL(__do_set_cpus_allowed);
 void do_set_cpus_allowed(struct task_struct *p, const struct cpumask *new_mask)
 {
 	__do_set_cpus_allowed(p, new_mask, 0);
 }
-
+EXPORT_SYMBOL(do_set_cpus_allowed);
 int dup_user_cpus_ptr(struct task_struct *dst, struct task_struct *src,
 		      int node)
 {

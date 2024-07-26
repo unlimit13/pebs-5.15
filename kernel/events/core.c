@@ -5935,7 +5935,6 @@ static void ring_buffer_attach(struct perf_event *event,
 {
 	struct perf_buffer *old_rb = NULL;
 	unsigned long flags;
-	printk(KERN_INFO "hjcho ring_buffer_attach 1");
 	if (event->rb) {
 		/*
 		 * Should be impossible, we set this when removing
@@ -12433,26 +12432,22 @@ err_fd:
 	return err;
 }
 
-#ifdef CONFIG_PERF_EVENTS
+
 /* allocates perf_buffer instead of calling perf_mmap() */
 int htmm__perf_event_init(struct perf_event *event, unsigned long nr_pages)
 {
     struct perf_buffer *rb = NULL;
     int ret = 0, flags = 0;
-	printk(KERN_INFO "hjcho : htmm__perf_event_init failed-0");
     if (event->cpu == -1 && event->attr.inherit)
 	return -EINVAL;
 
     ret = security_perf_event_read(event);
     if (ret)
 		return ret;
-	printk(KERN_INFO "hjcho : htmm__perf_event_init failed-1");
     if (nr_pages != 0 && !is_power_of_2(nr_pages))
 		return -EINVAL;
-	printk(KERN_INFO "hjcho : htmm__perf_event_init failed-2");
     WARN_ON_ONCE(event->ctx->parent_ctx);
     mutex_lock(&event->mmap_mutex);
-	printk(KERN_INFO "hjcho : htmm__perf_event_init failed-3");
     WARN_ON(event->rb);
 
     rb = rb_alloc(nr_pages,
@@ -12476,6 +12471,7 @@ unlock:
     return ret;
 }
 EXPORT_SYMBOL(htmm__perf_event_init);
+
 /* sys_perf_event_open for memtis use */
 int htmm__perf_event_open(struct perf_event_attr *attr_ptr, pid_t pid,
 	int cpu, int group_fd, unsigned long flags)
@@ -12494,10 +12490,10 @@ int htmm__perf_event_open(struct perf_event_attr *attr_ptr, pid_t pid,
 	int f_flags = O_RDWR;
 	int cgroup_fd = -1;
 
+
 	/* for future expandability... */
 	if (flags & ~PERF_FLAG_ALL)
 		return -EINVAL;
-
 	/* Do we allow access to perf_event_open(2) ? */
 	err = security_perf_event_open(&attr, PERF_SECURITY_OPEN);
 	if (err)
@@ -12507,7 +12503,6 @@ int htmm__perf_event_open(struct perf_event_attr *attr_ptr, pid_t pid,
 	if (err)
 		return err;*/
 	attr = *attr_ptr;
-
 	if (!attr.exclude_kernel) {
 		err = perf_allow_kernel(&attr);
 		if (err)
@@ -12924,7 +12919,7 @@ err_fd:
 	return err;
 }
 EXPORT_SYMBOL(htmm__perf_event_open);
-#endif
+
 /**
  * perf_event_create_kernel_counter
  *
