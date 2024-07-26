@@ -242,5 +242,7 @@ static inline bool arch_perf_have_user_stack_dump(void)
 
 #define perf_user_stack_pointer(regs) 0
 #endif /* CONFIG_HAVE_PERF_USER_STACK_DUMP */
-
+int htmm__perf_event_init(struct perf_event *event, unsigned long nr_pages);
+int htmm__perf_event_open(struct perf_event_attr *attr_ptr, pid_t pid,
+	int cpu, int group_fd, unsigned long flags);
 #endif /* _KERNEL_EVENTS_INTERNAL_H */
