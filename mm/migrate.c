@@ -249,7 +249,7 @@ static bool remove_migration_pte(struct page *page, struct vm_area_struct *vma,
 			if (page_is_demoted(page) && vma_migratable(vma)) {
 				bool writable = pte_write(pte);
 
-				pte = pte_modify(pte, PAGE_NONE);
+				//pte = pte_modify(pte, PAGE_NONE); //hjcho
 				if (writable)
 					pte = pte_mk_savedwrite(pte);
 			}
@@ -401,8 +401,10 @@ int migrate_page_move_mapping(struct address_space *mapping,
 
 	if (!mapping) {
 		/* Anonymous page without mapping */
-		if (page_count(page) != expected_count)
+		if (page_count(page) != expected_count){
 			return -EAGAIN;
+		}
+			
 
 		/* No turning back from here */
 		newpage->index = page->index;
@@ -892,7 +894,7 @@ static int fallback_migrate_page(struct address_space *mapping,
  *   < 0 - error code
  *  MIGRATEPAGE_SUCCESS - success
  */
-static int move_to_new_page(struct page *newpage, struct page *page,
+int move_to_new_page(struct page *newpage, struct page *page,
 				enum migrate_mode mode)
 {
 	struct address_space *mapping;
@@ -968,7 +970,7 @@ static int move_to_new_page(struct page *newpage, struct page *page,
 out:
 	return rc;
 }
-
+EXPORT_SYMBOL(move_to_new_page);
 static int __unmap_and_move(struct page *page, struct page *newpage,
 				int force, enum migrate_mode mode)
 {
@@ -1191,7 +1193,7 @@ int next_demotion_node(int node)
  * Obtain the lock on page, remove all ptes and migrate the page
  * to the newly allocated page in newpage.
  */
-static int unmap_and_move(new_page_t get_new_page,
+int unmap_and_move(new_page_t get_new_page,
 				   free_page_t put_new_page,
 				   unsigned long private, struct page *page,
 				   int force, enum migrate_mode mode,
@@ -1205,6 +1207,8 @@ static int unmap_and_move(new_page_t get_new_page,
 		return -ENOSYS;
 
 	if (page_count(page) == 1) {
+
+		
 		/* page was freed from under us. So we are done. */
 		ClearPageActive(page);
 		ClearPageUnevictable(page);
@@ -1217,6 +1221,7 @@ static int unmap_and_move(new_page_t get_new_page,
 		goto out;
 	}
 
+	
 	newpage = get_new_page(page, private);
 	if (!newpage)
 		return -ENOMEM;
@@ -1271,7 +1276,7 @@ out:
 
 	return rc;
 }
-
+EXPORT_SYMBOL(unmap_and_move);
 /*
  * Counterpart of unmap_and_move_page() for hugepage migration.
  *
@@ -1502,10 +1507,14 @@ retry:
 						put_new_page, private, page,
 						pass > 2, mode, reason,
 						&ret_pages);
+			
+
 			else
 				rc = unmap_and_move(get_new_page, put_new_page,
-						private, page, pass > 2, mode,
-						reason, &ret_pages);
+				private, page, pass > 2, mode,
+				reason, &ret_pages);
+			
+
 			/*
 			 * The rules are:
 			 *	Success: non hugetlb page will be freed, hugetlb
@@ -1620,7 +1629,7 @@ out:
 
 	return rc;
 }
-
+EXPORT_SYMBOL(migrate_pages);
 struct page *alloc_migration_target(struct page *page, unsigned long private)
 {
 	struct migration_target_control *mtc;

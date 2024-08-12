@@ -12455,7 +12455,6 @@ int htmm__perf_event_init(struct perf_event *event, unsigned long nr_pages)
 	    event->cpu, flags);
     if (!rb) {
 		ret = -ENOMEM;
-		printk(KERN_INFO "hjcho :  rb alloc failed");
 		goto unlock;
     }
 

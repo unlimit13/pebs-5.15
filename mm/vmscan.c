@@ -3787,8 +3787,7 @@ static bool pgdat_balanced(pg_data_t *pgdat, int order, int highest_zoneidx)
 	unsigned long mark = -1;
 	struct zone *zone;
 
-	if (node_is_toptier(pgdat->node_id) &&
-			highest_zoneidx >= ZONE_NORMAL)
+	if (node_is_toptier(pgdat->node_id) && highest_zoneidx >= ZONE_NORMAL)
 		return pgdat_toptier_balanced(pgdat, 0, highest_zoneidx);
 	/*
 	 * Check watermarks bottom-up as lower zones are more likely to

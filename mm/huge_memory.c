@@ -1434,6 +1434,7 @@ vm_fault_t do_huge_pmd_numa_page(struct vm_fault *vmf)
 	bool was_writable = pmd_savedwrite(oldpmd);
 	int flags = 0;
 
+
 	vmf->ptl = pmd_lock(vma->vm_mm, vmf->pmd);
 	if (unlikely(!pmd_same(oldpmd, *vmf->pmd))) {
 		spin_unlock(vmf->ptl);
@@ -1448,6 +1449,7 @@ vm_fault_t do_huge_pmd_numa_page(struct vm_fault *vmf)
 	/* See similar comment in do_numa_page for explanation */
 	if (!was_writable)
 		flags |= TNF_NO_GROUP;
+
 
 	page_nid = page_to_nid(page);
 	last_cpupid = page_cpupid_last(page);
@@ -1776,6 +1778,7 @@ int change_huge_pmd(struct vm_area_struct *vma, pmd_t *pmd,
 
 	if (prot_numa && pmd_protnone(*pmd))
 		goto unlock;
+
 
 	/*
 	 * In case prot_numa, we are under mmap_read_lock(mm). It's critical

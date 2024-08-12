@@ -40,7 +40,14 @@ enum migrate_reason {
 extern const char *migrate_reason_names[MR_TYPES];
 
 #ifdef CONFIG_MIGRATION
-
+extern int unmap_and_move(new_page_t get_new_page,
+				   free_page_t put_new_page,
+				   unsigned long private, struct page *page,
+				   int force, enum migrate_mode mode,
+				   enum migrate_reason reason,
+				   struct list_head *ret);
+extern int move_to_new_page(struct page *newpage, struct page *page,
+				enum migrate_mode mode);
 extern void putback_movable_pages(struct list_head *l);
 extern int migrate_page(struct address_space *mapping,
 			struct page *newpage, struct page *page,

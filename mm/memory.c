@@ -4346,6 +4346,7 @@ static vm_fault_t do_numa_page(struct vm_fault *vmf)
 	bool was_writable = pte_savedwrite(vmf->orig_pte);
 	int flags = 0;
 
+
 	/*
 	 * The "pte" at this point cannot be used safely without
 	 * validation through pte_unmap_same(). It's of NUMA type but
@@ -4387,6 +4388,7 @@ static vm_fault_t do_numa_page(struct vm_fault *vmf)
 	 */
 	if (page_mapcount(page) > 1 && (vma->vm_flags & VM_SHARED))
 		flags |= TNF_SHARED;
+
 
 	last_cpupid = page_cpupid_last(page);
 	page_nid = page_to_nid(page);
