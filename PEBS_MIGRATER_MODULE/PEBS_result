@@ -1,0 +1,180 @@
+[  104.247966] smpboot: CPU 45 is now offline
+[  104.382654] sep5_48: [warning] [linuxos_offline_cpu@896]: Cpu 46 is not allowed to go offline!
+[  106.116008] smpboot: CPU 46 is now offline
+[  106.246596] sep5_48: [warning] [linuxos_offline_cpu@896]: Cpu 47 is not allowed to go offline!
+[  106.288108] smpboot: CPU 47 is now offline
+[  107.507989] page:000000001e33cf9e refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2fb0000
+[  107.507996] flags: 0x17ffffc0001000(reserved|node=0|zone=2|lastcpupid=0x1fffff)
+[  107.508001] raw: 0017ffffc0001000 ffe26cd37ec00008 ffe26cd37ec00008 0000000000000000
+[  107.508003] raw: 0000000000000000 0000000000000000 00000001ffffffff 0000000000000000
+[  107.508003] page dumped because: unmovable page
+[  108.271386] page:000000006032a208 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x5faf580
+[  108.271393] flags: 0x57ffffc0001000(reserved|node=1|zone=2|lastcpupid=0x1fffff)
+[  108.271398] raw: 0057ffffc0001000 ffe26cd43ebd6008 ffe26cd43ebd6008 0000000000000000
+[  108.271400] raw: 0000000000000000 0000000000000000 00000001ffffffff 0000000000000000
+[  108.271401] page dumped because: unmovable page
+[  108.296763] perf: Dynamic interrupt throttling disabled, can hang your system!
+[  110.494151] tee (3457): drop_caches: 3
+[  292.632975] tee (3963): drop_caches: 3
+[  478.244198] tee (4406): drop_caches: 3
+[  478.352984] pebs_migrater: `' invalid for parameter `target_pid'
+[  106.116008] smpboot: CPU 46 is now offline
+[  106.246596] sep5_48: [warning] [linuxos_offline_cpu@896]: Cpu 47 is not allowed to go offline!
+[  106.288108] smpboot: CPU 47 is now offline
+[  107.507989] page:000000001e33cf9e refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2fb0000
+[  107.507996] flags: 0x17ffffc0001000(reserved|node=0|zone=2|lastcpupid=0x1fffff)
+[  107.508001] raw: 0017ffffc0001000 ffe26cd37ec00008 ffe26cd37ec00008 0000000000000000
+[  107.508003] raw: 0000000000000000 0000000000000000 00000001ffffffff 0000000000000000
+[  107.508003] page dumped because: unmovable page
+[  108.271386] page:000000006032a208 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x5faf580
+[  108.271393] flags: 0x57ffffc0001000(reserved|node=1|zone=2|lastcpupid=0x1fffff)
+[  108.271398] raw: 0057ffffc0001000 ffe26cd43ebd6008 ffe26cd43ebd6008 0000000000000000
+[  108.271400] raw: 0000000000000000 0000000000000000 00000001ffffffff 0000000000000000
+[  108.271401] page dumped because: unmovable page
+[  108.296763] perf: Dynamic interrupt throttling disabled, can hang your system!
+[  110.494151] tee (3457): drop_caches: 3
+[  292.632975] tee (3963): drop_caches: 3
+[  478.244198] tee (4406): drop_caches: 3
+[  478.352984] pebs_migrater: `' invalid for parameter `target_pid'
+[  478.472112] tee (4425): drop_caches: 3
+[  478.630740] pebs_migrater: `' invalid for parameter `target_pid'
+[  106.288108] smpboot: CPU 47 is now offline
+[  107.507989] page:000000001e33cf9e refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2fb0000
+[  107.507996] flags: 0x17ffffc0001000(reserved|node=0|zone=2|lastcpupid=0x1fffff)
+[  107.508001] raw: 0017ffffc0001000 ffe26cd37ec00008 ffe26cd37ec00008 0000000000000000
+[  107.508003] raw: 0000000000000000 0000000000000000 00000001ffffffff 0000000000000000
+[  107.508003] page dumped because: unmovable page
+[  108.271386] page:000000006032a208 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x5faf580
+[  108.271393] flags: 0x57ffffc0001000(reserved|node=1|zone=2|lastcpupid=0x1fffff)
+[  108.271398] raw: 0057ffffc0001000 ffe26cd43ebd6008 ffe26cd43ebd6008 0000000000000000
+[  108.271400] raw: 0000000000000000 0000000000000000 00000001ffffffff 0000000000000000
+[  108.271401] page dumped because: unmovable page
+[  108.296763] perf: Dynamic interrupt throttling disabled, can hang your system!
+[  110.494151] tee (3457): drop_caches: 3
+[  292.632975] tee (3963): drop_caches: 3
+[  478.244198] tee (4406): drop_caches: 3
+[  478.352984] pebs_migrater: `' invalid for parameter `target_pid'
+[  478.472112] tee (4425): drop_caches: 3
+[  478.630740] pebs_migrater: `' invalid for parameter `target_pid'
+[  478.727171] tee (4444): drop_caches: 3
+[  478.937374] pebs_migrater: `' invalid for parameter `target_pid'
+[  107.508003] raw: 0000000000000000 0000000000000000 00000001ffffffff 0000000000000000
+[  107.508003] page dumped because: unmovable page
+[  108.271386] page:000000006032a208 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x5faf580
+[  108.271393] flags: 0x57ffffc0001000(reserved|node=1|zone=2|lastcpupid=0x1fffff)
+[  108.271398] raw: 0057ffffc0001000 ffe26cd43ebd6008 ffe26cd43ebd6008 0000000000000000
+[  108.271400] raw: 0000000000000000 0000000000000000 00000001ffffffff 0000000000000000
+[  108.271401] page dumped because: unmovable page
+[  108.296763] perf: Dynamic interrupt throttling disabled, can hang your system!
+[  110.494151] tee (3457): drop_caches: 3
+[  292.632975] tee (3963): drop_caches: 3
+[  478.244198] tee (4406): drop_caches: 3
+[  478.352984] pebs_migrater: `' invalid for parameter `target_pid'
+[  478.472112] tee (4425): drop_caches: 3
+[  478.630740] pebs_migrater: `' invalid for parameter `target_pid'
+[  478.727171] tee (4444): drop_caches: 3
+[  478.937374] pebs_migrater: `' invalid for parameter `target_pid'
+[  544.034905] tee (4641): drop_caches: 3
+[  563.611398] tee (4730): drop_caches: 3
+[  570.241670] tee (4767): drop_caches: 3
+[  570.358673] pebs_migrater: `' invalid for parameter `target_pid'
+[  108.271386] page:000000006032a208 refcount:1 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x5faf580
+[  108.271393] flags: 0x57ffffc0001000(reserved|node=1|zone=2|lastcpupid=0x1fffff)
+[  108.271398] raw: 0057ffffc0001000 ffe26cd43ebd6008 ffe26cd43ebd6008 0000000000000000
+[  108.271400] raw: 0000000000000000 0000000000000000 00000001ffffffff 0000000000000000
+[  108.271401] page dumped because: unmovable page
+[  108.296763] perf: Dynamic interrupt throttling disabled, can hang your system!
+[  110.494151] tee (3457): drop_caches: 3
+[  292.632975] tee (3963): drop_caches: 3
+[  478.244198] tee (4406): drop_caches: 3
+[  478.352984] pebs_migrater: `' invalid for parameter `target_pid'
+[  478.472112] tee (4425): drop_caches: 3
+[  478.630740] pebs_migrater: `' invalid for parameter `target_pid'
+[  478.727171] tee (4444): drop_caches: 3
+[  478.937374] pebs_migrater: `' invalid for parameter `target_pid'
+[  544.034905] tee (4641): drop_caches: 3
+[  563.611398] tee (4730): drop_caches: 3
+[  570.241670] tee (4767): drop_caches: 3
+[  570.358673] pebs_migrater: `' invalid for parameter `target_pid'
+[  570.476255] tee (4786): drop_caches: 3
+[  570.635627] pebs_migrater: `' invalid for parameter `target_pid'
+[  108.271398] raw: 0057ffffc0001000 ffe26cd43ebd6008 ffe26cd43ebd6008 0000000000000000
+[  108.271400] raw: 0000000000000000 0000000000000000 00000001ffffffff 0000000000000000
+[  108.271401] page dumped because: unmovable page
+[  108.296763] perf: Dynamic interrupt throttling disabled, can hang your system!
+[  110.494151] tee (3457): drop_caches: 3
+[  292.632975] tee (3963): drop_caches: 3
+[  478.244198] tee (4406): drop_caches: 3
+[  478.352984] pebs_migrater: `' invalid for parameter `target_pid'
+[  478.472112] tee (4425): drop_caches: 3
+[  478.630740] pebs_migrater: `' invalid for parameter `target_pid'
+[  478.727171] tee (4444): drop_caches: 3
+[  478.937374] pebs_migrater: `' invalid for parameter `target_pid'
+[  544.034905] tee (4641): drop_caches: 3
+[  563.611398] tee (4730): drop_caches: 3
+[  570.241670] tee (4767): drop_caches: 3
+[  570.358673] pebs_migrater: `' invalid for parameter `target_pid'
+[  570.476255] tee (4786): drop_caches: 3
+[  570.635627] pebs_migrater: `' invalid for parameter `target_pid'
+[  570.761294] tee (4805): drop_caches: 3
+[  570.966555] pebs_migrater: `' invalid for parameter `target_pid'
+[ 1561.182024]  ? do_syscall_64+0x69/0x80
+[ 1561.182024]  ? syscall_exit_to_user_mode+0x27/0x50
+[ 1561.182026]  ? __x64_sys_write+0x19/0x20
+[ 1561.182029]  ? do_syscall_64+0x69/0x80
+[ 1561.182030]  ? sysvec_apic_timer_interrupt+0x4e/0x90
+[ 1561.182032]  ? asm_sysvec_apic_timer_interrupt+0xa/0x20
+[ 1561.182036]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+[ 1561.182037] RIP: 0033:0x7f3e2aeefa7b
+[ 1561.182040] Code: 8b 15 b9 b3 0f 00 f7 d8 64 89 02 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa b8 0b 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 85 b3 0f 00 f7 d8 64 89 01 48
+[ 1561.182041] RSP: 002b:00007fff3dc787c8 EFLAGS: 00000202 ORIG_RAX: 000000000000000b
+[ 1561.182042] RAX: ffffffffffffffda RBX: fffffffffffffed0 RCX: 00007f3e2aeefa7b
+[ 1561.182043] RDX: 0000000000000000 RSI: 000000073f30d000 RDI: 00007f365cf6f000
+[ 1561.182043] RBP: 0000000000000000 R08: 00007f365cf6f000 R09: 0000000000000000
+[ 1561.182044] R10: 00007fff3dc77fc0 R11: 0000000000000202 R12: 00007fff3dc78c00
+[ 1561.182044] R13: 0000561bc7c76088 R14: 0000561bc7c758b8 R15: 00007f3e2b3c3040
+[ 1561.182046] ---[ end trace 720573dedaa12954 ]---
+[ 1563.945632] total promotion : 4576606
+[ 1563.945635] total candidate : 4578702
+[ 1563.945637] total sample : 74781760
+[ 1563.945639] PEBS Migrater Module Removed
+[ 1561.182036]  entry_SYSCALL_64_after_hwframe+0x44/0xae
+[ 1561.182037] RIP: 0033:0x7f3e2aeefa7b
+[ 1561.182040] Code: 8b 15 b9 b3 0f 00 f7 d8 64 89 02 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa b8 0b 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 85 b3 0f 00 f7 d8 64 89 01 48
+[ 1561.182041] RSP: 002b:00007fff3dc787c8 EFLAGS: 00000202 ORIG_RAX: 000000000000000b
+[ 1561.182042] RAX: ffffffffffffffda RBX: fffffffffffffed0 RCX: 00007f3e2aeefa7b
+[ 1561.182043] RDX: 0000000000000000 RSI: 000000073f30d000 RDI: 00007f365cf6f000
+[ 1561.182043] RBP: 0000000000000000 R08: 00007f365cf6f000 R09: 0000000000000000
+[ 1561.182044] R10: 00007fff3dc77fc0 R11: 0000000000000202 R12: 00007fff3dc78c00
+[ 1561.182044] R13: 0000561bc7c76088 R14: 0000561bc7c758b8 R15: 00007f3e2b3c3040
+[ 1561.182046] ---[ end trace 720573dedaa12954 ]---
+[ 1563.945632] total promotion : 4576606
+[ 1563.945635] total candidate : 4578702
+[ 1563.945637] total sample : 74781760
+[ 1563.945639] PEBS Migrater Module Removed
+[ 1564.062689] tee (5317): drop_caches: 3
+[ 1564.164415] PEBS Migrater Module Initialized
+[ 2509.369325] total promotion : 4225148
+[ 2509.369329] total candidate : 4226038
+[ 2509.369331] total sample : 74459894
+[ 2509.369333] PEBS Migrater Module Removed
+[ 1561.182043] RBP: 0000000000000000 R08: 00007f365cf6f000 R09: 0000000000000000
+[ 1561.182044] R10: 00007fff3dc77fc0 R11: 0000000000000202 R12: 00007fff3dc78c00
+[ 1561.182044] R13: 0000561bc7c76088 R14: 0000561bc7c758b8 R15: 00007f3e2b3c3040
+[ 1561.182046] ---[ end trace 720573dedaa12954 ]---
+[ 1563.945632] total promotion : 4576606
+[ 1563.945635] total candidate : 4578702
+[ 1563.945637] total sample : 74781760
+[ 1563.945639] PEBS Migrater Module Removed
+[ 1564.062689] tee (5317): drop_caches: 3
+[ 1564.164415] PEBS Migrater Module Initialized
+[ 2509.369325] total promotion : 4225148
+[ 2509.369329] total candidate : 4226038
+[ 2509.369331] total sample : 74459894
+[ 2509.369333] PEBS Migrater Module Removed
+[ 2509.467630] tee (5609): drop_caches: 3
+[ 2509.567308] PEBS Migrater Module Initialized
+[ 3424.776483] total promotion : 606402
+[ 3424.776489] total candidate : 606920
+[ 3424.776491] total sample : 66764073
+[ 3424.776493] PEBS Migrater Module Removed
