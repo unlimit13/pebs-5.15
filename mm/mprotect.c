@@ -109,7 +109,12 @@ static unsigned long change_pte_range(struct vm_area_struct *vma, pmd_t *pmd,
 				 * Don't mess with PTEs if page is already on the node
 				 * a single-threaded process is running on.
 				 */
-				if (target_node == page_to_nid(page))
+
+				int nid=page_to_nid(page);
+				if (target_node == nid)
+					continue;
+				
+				if (node_is_toptier(nid))
 					continue;
 			}
 
